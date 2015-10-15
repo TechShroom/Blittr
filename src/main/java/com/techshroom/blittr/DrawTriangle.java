@@ -5,10 +5,18 @@ import com.google.auto.value.AutoValue;
 @AutoValue
 public abstract class DrawTriangle {
 
-    public abstract Point getPoint1();
+    public static DrawTriangle of(RenderPoint p1, RenderPoint p2,
+            RenderPoint p3) {
+        return new AutoValue_DrawTriangle(p1, p2, p3);
+    }
 
-    public abstract Point getPoint2();
+    DrawTriangle() {
+    }
 
-    public abstract Point getPoint3();
+    public abstract RenderPoint getPoint1();
+
+    public abstract RenderPoint getPoint2();
+
+    public abstract RenderPoint getPoint3();
 
 }
