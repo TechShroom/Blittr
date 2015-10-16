@@ -50,7 +50,29 @@ configurations.all {
      cacheChangingModulesFor 0, 'seconds'
    }
 }
+sourceSets {
+    main.java {
+        srcDir 'src/generated/java'
+    }
+    main.resources {
+        srcDir 'src/generated/resources'
+    }
+    // define tools
+    tools {}
+}
+configurations.toolsCompile {
+    extendsFrom configurations.compile
+}
+eclipse {
+    classpath {
+        plusConfigurations += [ configurations.toolsCompile ]
+    }
+}
+task runTools(dependsOn: compileToolsJava) {
 
+}
+eclipseClasspath.dependsOn(runTools)
+compileJava.dependsOn(runTools)
 dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.0.2'
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.0.2'
@@ -58,6 +80,7 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '2.3'
     compile group: 'com.google.code.findbugs', name: 'jsr305', version: '1.3.9'
     compile group: 'com.flowpowered', name: 'flow-math', version: '1.0.2-SNAPSHOT'
+    toolsCompile group: 'com.squareup', name: 'javapoet', version: '1.4.0-SNAPSHOT'
     addAPTReqWComp group: 'com.google.guava', name: 'guava', version: '18.0'
     addAPT group: 'com.google.auto.factory', name: 'auto-factory', version: '1.0-SNAPSHOT'
     addAPT group: 'com.google.auto.service', name: 'auto-service', version: '1.0-SNAPSHOT'

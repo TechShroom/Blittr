@@ -1,0 +1,24 @@
+name=RGBColorI~
+    type=int~
+    converterCodeHSL=
+double r = getRed(), g = getGreen(), b = getBlue();
+r /= 255, g /= 255, b /= 255;
+double max = Math.max(r, Math.max(g, b)), min = Math.min(r, Math.min(g, b));
+double h, s, l = (max + min) / 2;
+
+if(Double.compare(max, min) == 0) {
+    h = s = 0;
+} else {
+    double d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (Double.compare(max, r) == 0) {
+        h = (g - b) / d + (g < b ? 6 : 0);
+    } else if (Double.compare(max, g) == 0){
+        h = (b - r) / d + 2;
+    } else if (Double.compare(max, b) == 0) {
+        h = (r - g) / d + 4;
+    }
+    h /= 6;
+}
+
+return $T.create(h, s, l);~|HSLColorD~
