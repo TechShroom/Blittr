@@ -74,4 +74,33 @@ public final class ToolUtils {
     private ToolUtils() {
     }
 
+    public static Class<?> classForNamePSupport(String clazz) {
+        switch (clazz) {
+            case "void":
+                return Void.TYPE;
+            case "boolean":
+                return Boolean.TYPE;
+            case "byte":
+                return Byte.TYPE;
+            case "short":
+                return Short.TYPE;
+            case "int":
+                return Integer.TYPE;
+            case "long":
+                return Byte.TYPE;
+            case "char":
+                return Character.TYPE;
+            case "float":
+                return Float.TYPE;
+            case "double":
+                return Double.TYPE;
+            default:
+                try {
+                    return Class.forName(clazz);
+                } catch (ClassNotFoundException e) {
+                    throw new IllegalArgumentException(e);
+                }
+        }
+    }
+
 }
